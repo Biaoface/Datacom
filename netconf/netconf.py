@@ -22,7 +22,7 @@ class ssh():
     def ssh_config(file,ip,username,password):
         a = ssh.ssh_connect(ip,username,password)
         cli = a.invoke_shell()
-        cli.send('sys\n')
+        cli.send('sys\n')   
         time.sleep(0.5)
         cli.send('screen-length 0 \n')
         time.sleep(0.5)
@@ -38,17 +38,17 @@ class ssh():
         a.close()
 #定义函数 huawei_connect，用于建立NETCONF 连接
 def huawei_connect(host, port, user, password):
-    return manager.connect(host=host,
-        port=port,
-        username=user,
-        password=password,
-        hostkey_verify = False,
-        device_params={'name': "huawei"},
-        allow_agent = False,
-        look_for_keys = False)
+    return manager.connect(host=host, 
+                        port=port, 
+                        username=user, 
+                        password=password, 
+                        hostkey_verify = False, 
+                        device_params={'name': "huawei"}, 
+                        allow_agent = False, 
+                        look_for_keys = False)
 #NETCONF 发送 XML 数据，配置设备接口 IP 地址HCIP-Datacom-Network Automation Developer 实验指导手册 第 32 页
 CREATE_INTERFACE = '''<config> 
-    <ethernet xmlns="http://www.huawei.com/netconf/vrp" content-version="1.0" formatversion="1.0"> 
+    <ethernet xmlns="http://www.huawei.com/netconf/vrp" content-version="1.0" format-version="1.0"> 
         <ethernetIfs> 
             <ethernetIf operation="merge"> 
                 <ifName>GE1/0/2</ifName> 
@@ -77,5 +77,6 @@ CREATE_INTERFACE = '''<config>
 #主函数，顺序执行 
 if __name__ == '__main__':
     ssh.ssh_config(filename,ip,ssh_user,ssh_password) 
+    time.sleep(1)
     m = huawei_connect(ip,netconf_port,netconf_user,netconf_password) 
     m.edit_config(target='running',config=CREATE_INTERFACE)
