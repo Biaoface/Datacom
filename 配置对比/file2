@@ -1,0 +1,112 @@
+<CE1>display cu
+!Software Version V200R005C10SPC607B607
+!Last configuration was updated at 2021-03-16 10:31:59+00:00 by python
+!Last configuration was saved at 2021-03-15 18:00:56+00:00
+#
+sysname CE1
+#
+device board 17 board-type CE-MPUB
+device board 1 board-type CE-LPUE
+#
+rsa peer-public-key rsa01 encoding-type openssh
+ public-key-code begin
+  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC92MdXE5GaRZHrpb7QMIGmI6G9wOqB4x1SCf8/TsxU
+  xNuxqsSG5tyCUwgw1h2oEIDzBQt9Y+OPhW+Rt7QiKlLtnxJnXnCvaswOfIj16T5VhKn5ptw7OROxYN2/
+  T2v2G3EhXl83bK6Zjq1Yjsxpg3HAgMVCDNu5dx0H0uF4acPxdXlcE0YUQ15IH/1mAEq40QZ3M5cXOyOS
+  ZJs6PLU28cY7StsBHlruG+zkPVIQbf/5XIsPtBml5LUExzeOp6yfVP79uDwkaPonkVvGlfrACB7gcPEr
+  Jnzhg8AAYZO5gEz1e04mLQ3Y7iXO4SbSGUY6PRNRQa9fb04r18N/3iqduE4H rsa-key
+ public-key-code end
+ peer-public-key end
+#
+aaa
+ local-user python password irreversible-cipher $1c$)t;`L`PmuD$$qY|%#~;;-"Ld+M;jGv9g;/x9fZ(y,;253=:Wz7%$
+ local-user python service-type ssh
+ local-user python user-group manage-ug
+ local-user netconf password irreversible-cipher $1c$]WEX8!A;;J$lm^i$br|~G&vTRG"t=4@%AztU/$*bPSZvMX7;t~4$
+ local-user netconf service-type ssh
+ local-user netconf level 3
+ #
+ authentication-scheme default
+ #
+ authorization-scheme default
+ #
+ accounting-scheme default
+ #
+ domain default
+ #
+ domain default_admin
+#
+interface Vlanif1
+ ip address 192.168.137.100 255.255.255.0
+#
+interface MEth0/0/0
+ undo shutdown
+#
+interface GE1/0/0
+ undo shutdown
+#
+interface GE1/0/1
+ shutdown
+#
+interface GE1/0/2
+ undo portswitch
+ description Config by NETCONF
+ shutdown
+ ip address 1.1.1.2 255.255.255.0
+#
+interface GE1/0/3
+ shutdown
+#
+interface GE1/0/4
+ shutdown
+#
+interface GE1/0/5
+ shutdown
+#
+interface GE1/0/6
+ shutdown
+#
+interface GE1/0/7
+ shutdown
+#
+interface GE1/0/8
+ shutdown
+#
+interface GE1/0/9
+ shutdown
+#
+interface NULL0
+#
+stelnet server enable
+snetconf server enable
+ssh user netcof
+ssh user netcof authentication-type password
+ssh user netconf
+ssh user netconf authentication-type all
+ssh user netconf service-type snetconf
+ssh user python
+ssh user python authentication-type all
+ssh user python assign rsa-key rsa01
+ssh user python service-type stelnet
+ssh authorization-type default aaa
+#
+ssh server cipher aes256_gcm aes128_gcm aes256_ctr aes192_ctr aes128_ctr aes256_cbc aes128_cbc 3des_cbc
+#
+ssh server dh-exchange min-len 1024
+#
+ssh client cipher aes256_gcm aes128_gcm aes256_ctr aes192_ctr aes128_ctr aes256_cbc aes128_cbc 3des_cbc
+#
+user-interface con 0
+#
+user-interface vty 0 4
+ authentication-mode aaa
+ user privilege level 3
+ protocol inbound ssh
+#
+netconf
+ protocol inbound ssh port 830
+#
+vm-manager
+#
+return
+<CE1>
