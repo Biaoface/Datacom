@@ -59,6 +59,8 @@ def compare_files(file1, file2, out_file):
         f.writelines(result)
     print()
 
+
+
 if __name__ == "__main__":
     output=get_config(ip, username, password)
     config = re.findall(r'(<CE1>display cu[\d\D]+<CE1>$)',output)

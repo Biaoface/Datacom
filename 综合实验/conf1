@@ -1,0 +1,97 @@
+<ce12800>display cu
+!Software Version V200R005C10SPC607B607
+!Last configuration was updated at 2021-03-16 17:19:09+00:00
+!Last configuration was saved at 2021-03-16 16:17:16+00:00
+#
+sysname ce12800
+#
+device board 17 board-type CE-MPUB
+device board 1 board-type CE-LPUE
+#
+rsa peer-public-key rsa01 encoding-type openssh
+ public-key-code begin
+  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC92MdXE5GaRZHrpb7QMIGmI6G9wOqB4x1SCf8/TsxU
+  xNuxqsSG5tyCUwgw1h2oEIDzBQt9Y+OPhW+Rt7QiKlLtnxJnXnCvaswOfIj16T5VhKn5ptw7OROxYN2/
+  T2v2G3EhXl83bK6Zjq1Yjsxpg3HAgMVCDNu5dx0H0uF4acPxdXlcE0YUQ15IH/1mAEq40QZ3M5cXOyOS
+  ZJs6PLU28cY7StsBHlruG+zkPVIQbf/5XIsPtBml5LUExzeOp6yfVP79uDwkaPonkVvGlfrACB7gcPEr
+  Jnzhg8AAYZO5gEz1e04mLQ3Y7iXO4SbSGUY6PRNRQa9fb04r18N/3iqduE4H rsa-key
+ public-key-code end
+ peer-public-key end
+#
+aaa
+ local-user python password irreversible-cipher $1c$k2Ac/ZGbOJ$1nTz~j{'=.0J|^0XOm1=CWhlRIw3p$$M2<D!udw/$
+ local-user python service-type ssh
+ local-user python user-group manage-ug
+ #
+ authentication-scheme default
+ #
+ authorization-scheme default
+ #
+ accounting-scheme default
+ #
+ domain default
+ #
+ domain default_admin
+#
+interface Vlanif1
+ ip address 192.168.137.100 255.255.255.0
+#
+interface MEth0/0/0
+ undo shutdown
+#
+interface GE1/0/0
+ undo shutdown
+#
+interface GE1/0/1
+ shutdown
+#
+interface GE1/0/2
+ shutdown
+#
+interface GE1/0/3
+ shutdown
+#
+interface GE1/0/4
+ shutdown
+#
+interface GE1/0/5
+ shutdown
+#
+interface GE1/0/6
+ shutdown
+#
+interface GE1/0/7
+ shutdown
+#
+interface GE1/0/8
+ shutdown
+#
+interface GE1/0/9
+ shutdown
+#
+interface NULL0
+#
+stelnet server enable
+ssh user python
+ssh user python authentication-type rsa
+ssh user python assign rsa-key rsa01
+ssh user python service-type stelnet
+ssh authorization-type default aaa
+#
+ssh server cipher aes256_gcm aes128_gcm aes256_ctr aes192_ctr aes128_ctr aes256_cbc aes128_cbc 3des_cbc
+#
+ssh server dh-exchange min-len 1024
+#
+ssh client cipher aes256_gcm aes128_gcm aes256_ctr aes192_ctr aes128_ctr aes256_cbc aes128_cbc 3des_cbc
+#
+user-interface con 0
+#
+user-interface vty 0 4
+ authentication-mode aaa
+ user privilege level 3
+ protocol inbound ssh
+#
+vm-manager
+#
+return
+<ce12800>
