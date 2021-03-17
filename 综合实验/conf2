@@ -1,6 +1,6 @@
 <ce12800>display cu
 !Software Version V200R005C10SPC607B607
-!Last configuration was updated at 2021-03-17 10:26:02+00:00 by python
+!Last configuration was updated at 2021-03-17 10:36:36+00:00 by netconf
 !Last configuration was saved at 2021-03-16 16:17:16+00:00
 #
 sysname ce12800
@@ -49,7 +49,10 @@ interface GE1/0/1
  shutdown
 #
 interface GE1/0/2
+ undo portswitch
+ description Config by NETCONF
  shutdown
+ ip address 192.168.2.1 255.255.255.0
 #
 interface GE1/0/3
  shutdown
