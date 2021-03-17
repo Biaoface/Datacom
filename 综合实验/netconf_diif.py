@@ -7,8 +7,8 @@ import difflib
 import re
 
 ip = '192.168.137.100' 
-username='python' 
-password='Huawei12#$'
+ssh_user = 'python'
+ssh_password = 'Huawei12#$'
 netconf_port = '830'
 netconf_user = 'netconf'
 netconf_password = 'Huawei12#$'
@@ -109,7 +109,7 @@ def compare_files(file1, file2, out_file):
     print()
 if __name__ == "__main__":
     # 获取当前配置
-    output=get_config(ip, username, password)
+    output=get_config(ip, ssh_user, ssh_password)
     config = re.findall(r'(<ce12800>display cu[\d\D]+<ce12800>$)',output)
     with open(r'D:\\OneDrive\\5.code\\mygithub\\DATACOM\\综合实验\\conf1','w') as f: 
         f.writelines(config[0])
@@ -122,10 +122,10 @@ if __name__ == "__main__":
     m.edit_config(target='running',config=CREATE_INTERFACE)   
 
     # 再次获取配置
-    output=get_config(ip, username, password)
+    output=get_config(ip, ssh_user, ssh_password)
     config = re.findall(r'(<ce12800>display cu[\d\D]+<ce12800>$)',output)
     with open(r'D:\\OneDrive\\5.code\\mygithub\\DATACOM\\综合实验\\conf2','w') as f: 
         f.writelines(config[0])
-    
+
     # 对比配置
-    
+    compare_files(r'D:\\OneDrive\\5.code\\mygithub\\DATACOM\\综合实验\\conf1',r'D:\\OneDrive\\5.code\\mygithub\\DATACOM\\综合实验\\conf2', r'D:\\OneDrive\\5.code\\mygithub\\DATACOM\\综合实验\\result.html')
