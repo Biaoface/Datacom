@@ -51,7 +51,7 @@ class ssh():
             cli.send(i)
             time.sleep(0.5)    
         dis_this = cli.recv(999999).decode()
-        print ("netconf完成")
+        print ("netconf预配置完成")
         a.close()
 
 def huawei_connect(host, port, user, password):
